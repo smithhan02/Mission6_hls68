@@ -26,17 +26,24 @@ namespace newMission6_hls68.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult movieForm()
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult movieForm(ApplicationResponse ar)
         {
-            _blahContext.Add(ar);
-            _blahContext.SaveChanges();
-            return View("confirmation", ar);
+            if (ModelState.IsValid)
+            {
+                _blahContext.Add(ar);
+                _blahContext.SaveChanges();
+                return View("confirmation", ar);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult myPodcasts()

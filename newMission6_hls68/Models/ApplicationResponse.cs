@@ -23,6 +23,8 @@ namespace newMission6_hls68.Models
         public string rating { get; set; }
         public bool edited { get; set; }
         public string lentTo { get; set; }
+
+        [Range(0,25,ErrorMessage = "Notes may not exceed 25 characters.")]
         public string notes { get; set; }
 
     }
