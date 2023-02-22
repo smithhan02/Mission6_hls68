@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using newMission6_hls68.Models;
 using System;
@@ -13,9 +14,9 @@ namespace newMission6_hls68.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private DateApplicationContext _blahContext { get; set; }
+        private MovieContext _blahContext { get; set; }
         //constructor 
-        public HomeController(ILogger<HomeController> logger, DateApplicationContext someName)
+        public HomeController(ILogger<HomeController> logger, MovieContext someName)
         {
             _logger = logger;
             _blahContext = someName;
@@ -29,8 +30,11 @@ namespace newMission6_hls68.Controllers
         [HttpGet]
         public IActionResult movieForm()
         {
-            return View();
+            ViewBag.Categories = _blahContext.Categories.ToList();
+
+            return View(new ApplicationResponse()); // pass "new ApplicationResonse" later (learned in class)
         }
+        // this goes in HomeController.cs
         [HttpPost]
         public IActionResult movieForm(ApplicationResponse ar)
         {
@@ -51,16 +55,39 @@ namespace newMission6_hls68.Controllers
             return View();
         }
 
+        public IActionResult MovieTable()
+        {
 
-        public IActionResult Privacy()
+           var movies =  _blahContext.responses.Include(x => x.category).OrderBy(x => x.title).ToList();
+
+
+            return View(movies);
+        }
+
+        [HttpGet]
+        public IActionResult Edit (int movieId)
+        {
+            ViewBag.Categories = _blahContext.Categories.ToList();
+
+            var movie = _blahContext.responses.Single(x => x.movieId == movieId);
+
+            return View("movieForm", movie);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit (ApplicationResponse blah)
+        {
+            MovieContext.Update(blah);
+            MovieContext.SaveChanges();
+            return View("Waitlist");
+
+        }
+
+        public IActionResult Delete()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

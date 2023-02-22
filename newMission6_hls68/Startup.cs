@@ -26,7 +26,7 @@ namespace newMission6_hls68
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<DateApplicationContext>(options =>
+            services.AddDbContext<MovieContext>(options =>
            {
                options.UseSqlite(Configuration["ConnectionStrings:BlahConnection"]);
            });

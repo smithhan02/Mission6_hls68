@@ -6,22 +6,29 @@ using System.Threading.Tasks;
 
 namespace newMission6_hls68.Models
 {
-    public class DateApplicationContext : DbContext
+    public class MovieContext : DbContext
     {
         //constructor 
-        public DateApplicationContext (DbContextOptions<DateApplicationContext> options) : base (options)
+        public MovieContext (DbContextOptions<MovieContext> options) : base (options)
         {
             //leave blank for now 
         }
     public DbSet<ApplicationResponse> responses { get; set; }
-
+    public DbSet<Category> Categories { get; set; }
     protected override void  OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category { categoryId=1, categoryName="Action"},
+                new Category { categoryId=2, categoryName="Romance"},
+                new Category { categoryId = 3, categoryName = "Anime" },
+                new Category { categoryId = 4, categoryName = "Comedy" }
+
+                );
             mb.Entity<ApplicationResponse>().HasData(
                 new ApplicationResponse
                 {
                     movieId = 1,
-                    category = "Anime",
+                    categoryId = 3,
                     title = "Kiki's Delivery Service",
                     year = 1989,
                     director = " Hayao Miyazaki",
@@ -34,7 +41,7 @@ namespace newMission6_hls68.Models
                 new ApplicationResponse
                 {
                 movieId = 2,
-                    category = "Anime",
+                    categoryId = 3,
                     title = "Ponyo",
                     year = 2008,
                     director = " Hayao Miyazaki",
@@ -47,10 +54,10 @@ namespace newMission6_hls68.Models
                 new ApplicationResponse
                 {
                     movieId = 3,
-                    category = "Disney",
+                    categoryId = 4,
                     title = "Brother Bear",
                     year = 2003,
-                    director = "AAron Blaise",
+                    director = "Aaron Blaise",
                     rating = "PG",
                     edited = false,
                     lentTo = "Ben",

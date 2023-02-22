@@ -11,8 +11,7 @@ namespace newMission6_hls68.Models
         [Key]
         [Required]
         public int movieId { get; set; }
-        [Required]
-        public string category { get; set; }
+       
         [Required]
         public string title{get; set;}
         [Required]
@@ -24,8 +23,14 @@ namespace newMission6_hls68.Models
         public bool edited { get; set; }
         public string lentTo { get; set; }
 
-        [Range(0,25,ErrorMessage = "Notes may not exceed 25 characters.")]
+        [Range(0,25)]
         public string notes { get; set; }
+
+        //build foreign key relationship 
+        [Required]
+        public int categoryId { get; set; }
+        public Category category { get; set; }
+
 
     }
 }
