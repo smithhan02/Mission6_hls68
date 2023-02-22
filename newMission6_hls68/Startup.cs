@@ -56,7 +56,7 @@ namespace newMission6_hls68
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{movieId?}");
             });
         }
     }

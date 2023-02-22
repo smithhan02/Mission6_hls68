@@ -24,21 +24,21 @@
     <tbody>
         @foreach(var x in Model) //make sure Model has capital M
         {    <tr>
-    
-    <td>@x.category.categoryName</td>
-    <td>@x.title</td>
-    <td>@x.year </td>
-    <td>@x.director</td>
-    <td>@x.rating</td>
-    <td>@x.edited</td>
-    <td>@x.lentTo</td>
-    <td>@x.notes</td>
+                 <td>@x.movieId</td>
+                <td>@x.category.categoryName</td>
+                <td>@x.title</td>
+                <td>@x.year </td>
+                <td>@x.director</td>
+                <td>@x.rating</td>
+                <td>@x.edited</td>
+                <td>@x.lentTo</td>
+                <td>@x.notes</td>
 
-    <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@x.movieId">Edit</a></td>
-    <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.movieId">Delete</a></td>
-</tr>
+                <td><a asp-controller="Home" asp-action="Edit" asp-route-movieId="@x.movieId">Edit</a></td>
+                <td><a asp-controller="Home" asp-action="Delete" asp-route-movieId="@x.movieId">Delete</a></td>
+            </tr>
             }
 
     </tbody>
 
-</table>
+</table>s

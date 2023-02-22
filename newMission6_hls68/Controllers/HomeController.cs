@@ -78,15 +78,26 @@ namespace newMission6_hls68.Controllers
         [HttpPost]
         public IActionResult Edit (ApplicationResponse blah)
         {
-            MovieContext.Update(blah);
-            MovieContext.SaveChanges();
-            return View("Waitlist");
-
+            _blahContext.Update(blah);
+            _blahContext.SaveChanges();
+            return RedirectToAction("movieTable");
         }
 
-        public IActionResult Delete()
+        [HttpGet]
+        public IActionResult Delete(int movieId)
         {
+          var movie = _blahContext.responses.Single(x => x.movieId == movieId);
             return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(ApplicationResponse ar)
+        {
+
+            _blahContext.responses.Remove(ar);
+            _blahContext.SaveChanges();
+            return RedirectToAction("movieTable");
         }
 
     }
